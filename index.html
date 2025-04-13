@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="Cric stream Favicon.jpg">
+  <title>TG-@cric_stream</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #jwplayerDiv {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <script src="https://cdn.jwplayer.com/libraries/SAHhwvZq.js"></script>
+</head>
+<body>
+
+<script>
+  // Disable right-click and common dev tools keys
+  document.addEventListener("contextmenu", e => e.preventDefault());
+  document.addEventListener("keydown", function(e) {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+      (e.ctrlKey && e.key === "U")
+    ) {
+      e.preventDefault();
+    }
+  });
+
+  // Optional DevTools detection
+  (function() {
+    const element = new Image();
+    Object.defineProperty(element, 'id', {
+      get: function () {
+        throw new Error("DevTools detected");
+      }
+    });
+    setInterval(() => console.dir(element), 1000);
+  })();
+</script>
+
+<div id="jwplayerDiv"></div>
+
+<script>
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  // Default HLS sources (replace these URLs with real resolution-specific streams)
+  const sources = [
+    { file: "https://example.com/stream-180p.m3u8", label: "180p", type: "hls" },
+    { file: "https://example.com/stream-360p.m3u8", label: "360p", type: "hls" },
+    { file: "https://example.com/stream-480p.m3u8", label: "480p", type: "hls" },
+    { file: "https://example.com/stream-720p.m3u8", label: "720p", type: "hls", default: true },
+    { file: "https://example.com/stream-1080p.m3u8", label: "1080p", type: "hls" }
+  ];
+
+  // Optional override from query parameter
+  const customStream = getQueryParam("file");
+  if (customStream) {
+    // If file param provided, override default behavior
+    jwplayer("jwplayerDiv").setup({
+      file: customStream,
+      width: "100%",
+      height: "100%",
+      aspectratio: "16:9",
+      autostart: true,
+      mute: false,
+      preload: "auto",
+      cast: { appid: "CC1AD845" }
+    });
+  } else {
+    // Multi-quality setup
+    jwplayer("jwplayerDiv").setup({
+      sources: sources,
+      width: "100%",
+      height: "100%",
+      aspectratio: "16:9",
+      autostart: true,
+      mute: false,
+      preload: "auto",
+      cast: { appid: "CC1AD845" }
+    });
+  }
+</script>
+
+<!-- BEGIN: Powered by Supercounters.com -->
+<center>
+  <script type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script>
+  <script type="text/javascript">sc_online_t(1707487,"Users Online","170ddb");</script>
+  <br><noscript><a href="https://www.supercounters.com/">supercounters.com</a></noscript>
+</center>
+<!-- END: Powered by Supercounters.com -->
+
+<div style="background-color: #0074d9; text-align: center; padding: 10px;">
+  <a href="https://t.me/cric_stream" target="_blank">
+    <button id="joinTelegramButton">Join Telegram</button>
+  </a>
+</div>
+
+</body>
+</html>
